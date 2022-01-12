@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+	<!-- This will include a console appender and file appender.  
+		 We don't want that if we are using JSON.
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	 
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	-->
+	<include resource="org/springframework/boot/logging/logback/default.xml"/>
+	
+	<property name="LOG_FILE" value="C:/Users/vince/Kafka/logs/o365/o365MgmtApiReader.log" />
+	<property name="ERROR_LOG_FILE" value="C:/Users/vince/Kafka/logs/o365/o365MgmtApiReaderErrors.log" />
+	<property name="CONTENTURI_FILE" value="C:/Users/vince/Kafka/logs/o365/failedContentUris.log" />
+	<property name="NEXTPAGEURI_FILE" value="C:/Users/vince/Kafka/logs/o365/nextPageUri.log" />
+	<property name="CONTENTURILIST_FILE" value="C:/Users/vince/Kafka/logs/o365/contentUriList.log" />
+	<property name="LASTCONTENTURI_FILE" value="C:/Users/vince/Kafka/logs/o365/lastProcessedContentUri.log" />
+	<property name="LASTNEXTURI_FILE" value="C:/Users/vince/Kafka/logs/o365/lastProcessedNextUri.log" />
+	
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>%d{yyyy-MM-dd};%d{HH:mm:ss.SSS};[%thread];%5p;%logger{25};%m%n</pattern>
+	    </encoder>
+	    <file>${LOG_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${LOG_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>15</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>200MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>
+	<appender name="NEXTPAGEURI_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>%m%n</pattern>
+	    </encoder>
+	    <file>${NEXTPAGEURI_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${NEXTPAGEURI_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>2</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>100MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>
+    <appender name="CONTENTURI_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>%m%n</pattern>
+	    </encoder>
+	    <file>${CONTENTURI_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${CONTENTURI_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>2</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>200MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>
+    <appender name="CONTENTURILIST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>[%thread]:%m%n</pattern>
+	    </encoder>
+	    <file>${CONTENTURILIST_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${CONTENTURILIST_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>2</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>100MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>
+    <appender name="LASTCONTENTURI" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>[%thread]:%m%n</pattern>
+	    </encoder>
+	    <file>${LASTCONTENTURI_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${LASTCONTENTURI_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>2</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>100MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>  
+    <appender name="LASTNEXTURI" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>%m%n</pattern>
+	    </encoder>
+	    <file>${LASTNEXTURI_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${LASTCONTENTURI_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>2</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>100MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <encoder>
+	      <pattern>%d{yyyy-MM-dd};%d{HH:mm:ss.SSS};[%thread];%5p;%logger{25};%m%n</pattern>
+	    </encoder>
+	    <file>${ERROR_LOG_FILE}</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+	        <fileNamePattern>${ERROR_LOG_FILE}_%i</fileNamePattern>
+	        <minIndex>1</minIndex>
+	        <maxIndex>3</maxIndex>
+        </rollingPolicy>
+	    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+	        <maxFileSize>200MB</maxFileSize>
+	    </triggeringPolicy>
+    </appender>
+  	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	        <pattern>%d{yyyy-MM-dd};%d{HH:mm:ss.SSS};[%thread];%5p;%logger{25};%m%n</pattern>
+        <charset>utf8</charset>
+        </encoder>
+	</appender>
+	
+	<springProfile name="json">   	   	
+		<appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
+	        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+		</appender>
+	  	<root level="info">
+	  		<appender-ref ref="JSON"/>
+	  	</root>        
+    </springProfile>
+	<springProfile name="dev">   	   	
+		<root level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="FILE"/>
+	  	</root>     
+	  	<logger name="o365managementapireader" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="FILE"/>
+		</logger>  
+		<logger name="o365managementapireader_errors" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="ERROR_FILE"/>
+		</logger>  
+		<logger name="o365managementapireader_contentUris" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="CONTENTURI_FILE"/>
+		</logger> 
+		<logger name="o365managementapireader_nextPageUri" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="NEXTPAGEURI_FILE"/>
+		</logger>  
+		<logger name="o365managementapireader_contentUriList" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="CONTENTURILIST"/>
+		</logger>
+		<logger name="o365managementapireader_lastContentUri" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="LASTCONTENTURI"/>
+		</logger>
+		<logger name="o365managementapireader_lastNextUri" additivity="false" level="debug">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="LASTNEXTURI"/>
+		</logger>
+    </springProfile>
+	<springProfile name="prod">   	   	
+		<root level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="FILE"/>
+	  	</root>     
+	  	<logger name="o365managementapireader" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="FILE"/>
+		</logger>   
+		<logger name="o365managementapireader_errors" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="ERROR_FILE"/>
+		</logger>
+		<logger name="o365managementapireader_contentUris" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="CONTENTURI_FILE"/>
+		</logger>
+		<logger name="o365managementapireader_nextPageUri" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="NEXTPAGEURI_FILE"/>
+		</logger>
+				<logger name="o365managementapireader_contentUriList" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="CONTENTURILIST"/>
+		</logger>
+		<logger name="o365managementapireader_lastContentUri" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="LASTCONTENTURI"/>
+		</logger>
+				<logger name="o365managementapireader_lastNextUri" additivity="false" level="info">
+	  		<appender-ref ref="Console"/>
+	  		<appender-ref ref="LASTNEXTURI"/>
+		</logger>
+    </springProfile>  
+    
+</configuration>
